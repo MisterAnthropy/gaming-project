@@ -15,11 +15,12 @@ class UsersController < ApplicationController
             redirect "users/#{@user.id}"
          else 
          end
-         
+
 
 
 
     end
+
 
 
 
