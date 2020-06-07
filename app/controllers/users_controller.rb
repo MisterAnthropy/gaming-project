@@ -9,6 +9,15 @@ class UsersController < ApplicationController
 
     #receive the login form, find the user and log them in
     post '/login' do 
+        @user = Users.find_by(username: params[:username])
+         if @user.authenticate(params[:password])
+            session[:user_id] = @user.id
+            redirect "users/#{@user.id}"
+         else 
+         end
+         
+
+
 
     end
 
@@ -17,6 +26,10 @@ class UsersController < ApplicationController
     #render the signup page
     get '/signup' do 
         
+    end
+
+    get '/users/:id' do 
+        "users show.erb route"
     end
 
 
