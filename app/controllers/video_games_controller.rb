@@ -14,7 +14,10 @@ class VideoGamesController < ApplicationController
         else
             redirect '/games/new'
         end
+    end
 
+    get '/games/:id' do
+        @game = VideoGames.find(params[:id]) 
 
     end
 
