@@ -3,7 +3,7 @@
 <% @games.each do |game| %>
     <a href="/games/<%= game.id %>"><%= game.created_at %></a>
     <%= game.title %>
-    <%= game.users %>
+    <p>By <%= game.users.username unless game.users.blank? %></p>
 
     <br><br>
 <% end %>

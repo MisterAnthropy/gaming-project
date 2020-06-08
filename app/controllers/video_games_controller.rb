@@ -30,7 +30,7 @@ class VideoGamesController < ApplicationController
     get '/games/:id/edit' do 
         @game = VideoGames.find(params[:id])
         if logged_in?
-            if can_edit?(@game)
+            if @game.users == current_user
             erb :'/games/edit'
             else 
                 redirect  "users/#{current_user.id}"
