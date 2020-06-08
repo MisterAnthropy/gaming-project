@@ -18,8 +18,14 @@ class VideoGamesController < ApplicationController
 
     get '/games/:id' do
         @game = VideoGames.find(params[:id]) 
-
+        erb :'/games/show'
     end
+
+
+    get '/games/:id/edit' do 
+        erb :'/games/edit'
+    end
+    
 
 
 
