@@ -14,6 +14,8 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect "users/#{@user.id}"
          else 
+            #invalid input
+
          end
     end
 
@@ -24,14 +26,30 @@ class UsersController < ApplicationController
     
 
     post '/users' do 
+        if 
+            params[:username] != "" && params[:password] != ""
+            @user = Users.create(params[:id])
+            redirect "/users/#{@user.id}"
+        else
+            #invalid input
+        end
+
 
     end
 
-    
+
 
     get '/users/:id' do 
-        "users show.erb route"
+        @user = Users.find_by(id: params[:id])
+        
+        erb :'/users/show'
     end
+
+    get '/logout' do 
+        session.clear
+        redirect '/'
+    end
+    
 
 
 end
