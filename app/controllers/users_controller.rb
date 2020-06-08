@@ -14,7 +14,7 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect "users/#{@user.id}"
          else 
-            #invalid input
+            redirect '/login'
 
          end
     end
@@ -28,10 +28,12 @@ class UsersController < ApplicationController
     post '/users' do 
         if 
             params[:username] != "" && params[:password] != ""
-            @user = Users.create(params[:id])
+            @user = Users.create(params)
+            session[:user_id] = @user.id
             redirect "/users/#{@user.id}"
         else
             #invalid input
+            redirect '/signup'
         end
 
 
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
         session.clear
         redirect '/'
     end
-    
+
 
 
 end
