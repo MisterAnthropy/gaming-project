@@ -15,19 +15,19 @@ class UsersController < ApplicationController
             redirect "users/#{@user.id}"
          else 
          end
-
-
-
-
     end
-
-
-
 
     #render the signup page
     get '/signup' do 
-        
+        erb :signup 
     end
+    
+
+    post '/users' do 
+
+    end
+
+    
 
     get '/users/:id' do 
         "users show.erb route"
