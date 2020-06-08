@@ -4,6 +4,11 @@ class VideoGamesController < ApplicationController
         erb :'/games/new'
     end
 
+    get '/games' do 
+        @games = VideoGames.all 
+        erb :'/games/index'
+    end
+
     post '/games' do 
         if !logged_in?
             redirect '/'
@@ -23,9 +28,31 @@ class VideoGamesController < ApplicationController
 
 
     get '/games/:id/edit' do 
-        erb :'/games/edit'
+        @game = VideoGames.find(params[:id])
+        if logged_in?
+            if can_edit?(@game)
+            erb :'/games/edit'
+            else 
+                redirect  "users/#{current_user.id}"
+            end
+        else 
+            redirect '/'
+        end
+
     end
-    
+
+    post '/games/:id' do
+        @game = VideoGames.find(params[:id])
+        if logged_in?
+            @game.update(title: params[:title])
+            redirect "/games/#{@game.id}"
+        else
+            redirect '/'
+        end
+
+    end
+
+
 
 
 

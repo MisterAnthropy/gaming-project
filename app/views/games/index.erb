@@ -1,0 +1,10 @@
+<h2>Index for games</h2>
+
+<% @games.each do |game| %>
+    <a href="/games/<%= game.id %>"><%= game.created_at %></a>
+    <%= game.title %>
+    <%= game.users %>
+
+    <br><br>
+<% end %>
+
