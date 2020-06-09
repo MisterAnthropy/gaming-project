@@ -14,7 +14,7 @@ class VideoGamesController < ApplicationController
             redirect '/'
         end
         if params[:title] != ""
-            @game = VideoGames.create(title: params[:title], user_id: current_user.id)
+            @game = VideoGame.create(title: params[:title], user_id: current_user.id)
             redirect "/games/#{@game.id}"
         else
             redirect '/games/new'
@@ -22,18 +22,19 @@ class VideoGamesController < ApplicationController
     end
 
     get '/games/:id' do
-        @game = VideoGames.find(params[:id]) 
+        @game = VideoGame.find(params[:id]) 
         erb :'/games/show'
     end
 
 
     get '/games/:id/edit' do 
-        @game = VideoGames.find_by(id: params[:id])
+        @game = VideoGame.find_by(id: params[:id])
         if logged_in?
-            if @game.users == current_user
+            if @game.user == current_user
             erb :'/games/edit'
             #problem code below
-         
+            else 
+                redirect "/users/#{current_user.id}"
             end
         else 
             redirect '/'
@@ -42,7 +43,7 @@ class VideoGamesController < ApplicationController
     end
 
     patch '/games/:id' do
-        @game = VideoGames.find(params[:id])
+        @game = VideoGame.find(params[:id])
         if logged_in?
             @game.update(title: params[:title])
             redirect "/games/#{@game.id}"
