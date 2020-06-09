@@ -1,12 +1,12 @@
 class VideoGamesController < ApplicationController
 
-    get '/games/new' do 
-        erb :'/games/new'
+    get '/games' do 
+        @games = VideoGame.all 
+        erb :'/games/index'
     end
 
-    get '/games' do 
-        @games = VideoGames.all 
-        erb :'/games/index'
+    get '/games/new' do 
+        erb :'/games/new'
     end
 
     post '/games' do 
@@ -28,12 +28,12 @@ class VideoGamesController < ApplicationController
 
 
     get '/games/:id/edit' do 
-        @game = VideoGames.find(params[:id])
+        @game = VideoGames.find_by(id: params[:id])
         if logged_in?
             if @game.users == current_user
             erb :'/games/edit'
-            else 
-                redirect  "users/#{current_user.id}"
+            #problem code below
+         
             end
         else 
             redirect '/'
@@ -41,7 +41,7 @@ class VideoGamesController < ApplicationController
 
     end
 
-    post '/games/:id' do
+    patch '/games/:id' do
         @game = VideoGames.find(params[:id])
         if logged_in?
             @game.update(title: params[:title])

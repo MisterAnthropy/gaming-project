@@ -9,11 +9,11 @@ class UsersController < ApplicationController
 
     #receive the login form, find the user and log them in
     post '/login' do 
-        @user = Users.find_by(username: params[:username])
+        @user = User.find_by(username: params[:username])
          if @user.authenticate(params[:password])
             session[:user_id] = @user.id
             puts session
-            redirect "users/#{@user.id}"
+            redirect "/users/#{@user.id}"
          else 
             redirect '/login'
 
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     post '/users' do 
         if 
             params[:username] != "" && params[:password] != ""
-            @user = Users.create(params)
+            @user = User.create(params)
             session[:user_id] = @user.id
             redirect "/users/#{@user.id}"
         else
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
 
     get '/users/:id' do 
-        @user = Users.find_by(id: params[:id])
+        @user = User.find_by(id: params[:id])
         
         erb :'/users/show'
     end
