@@ -22,7 +22,7 @@ class VideoGamesController < ApplicationController
     end
 
     get '/games/:id' do
-        @game = VideoGame.find(params[:id]) 
+        @game = VideoGame.find_by(id: params[:id]) 
         erb :'/games/show'
     end
 
