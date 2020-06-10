@@ -3,8 +3,11 @@ Show Page for Video Games
 <p><%= @game.title %></p>
 
 <% if authorized?(@game) %>
-<a href="/games/<%= @game.id %>/edit">Edit Game</a>
-Delete Link
+    <a href="/games/<%= @game.id %>/edit">Edit Game</a>
+    <form class="" action="/games/<%= @game.id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" name="" value="Delete">
+    </form>
 <% end %>
 
 

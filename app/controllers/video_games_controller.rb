@@ -58,7 +58,13 @@ class VideoGamesController < ApplicationController
     end
 
     delete '/games/:id' do 
-
+        set_game
+        if authorized?(@game)
+            @game.destroy
+            redirect '/games'
+        else    
+            redirect '/games'
+        end
 
     end
 
