@@ -30,7 +30,7 @@ class VideoGamesController < ApplicationController
     get '/games/:id/edit' do 
         @game = VideoGame.find_by(id: params[:id])
         if logged_in?
-            if @game.user == current_user
+            if authorized?(@game)
             erb :'/games/edit'
             #problem code below
             else 
@@ -42,16 +42,26 @@ class VideoGamesController < ApplicationController
 
     end
 
-    patch '/games/:id' do
+    post '/games/:id' do
         @game = VideoGame.find(params[:id])
         if logged_in?
+            if @game.user == current_user 
             @game.update(title: params[:title])
             redirect "/games/#{@game.id}"
+            else
+                redirect "users/#{current_user.id}"
+            end
         else
             redirect '/'
         end
 
     end
+
+    delete '/games/:id' do 
+
+
+    end
+
 
 
 

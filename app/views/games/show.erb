@@ -2,7 +2,7 @@ Show Page for Video Games
 
 <p><%= @game.title %></p>
 
-<% if current_user == @game.user %>
+<% if authorized?(@game) %>
 <a href="/games/<%= @game.id %>/edit">Edit Game</a>
 Delete Link
 <% end %>
