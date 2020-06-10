@@ -22,13 +22,13 @@ class VideoGamesController < ApplicationController
     end
 
     get '/games/:id' do
-        @game = VideoGame.find_by(id: params[:id]) 
+        set_game
         erb :'/games/show'
     end
 
 
     get '/games/:id/edit' do 
-        @game = VideoGame.find_by(id: params[:id])
+        set_game
         if logged_in?
             if authorized?(@game)
             erb :'/games/edit'
@@ -43,7 +43,7 @@ class VideoGamesController < ApplicationController
     end
 
     post '/games/:id' do
-        @game = VideoGame.find(params[:id])
+        set_game
         if logged_in?
             if @game.user == current_user 
             @game.update(title: params[:title])
@@ -61,6 +61,11 @@ class VideoGamesController < ApplicationController
 
 
     end
+
+    def set_game
+        @game = VideoGame.find_by(id: params[:id])
+    end
+
 
 
 
