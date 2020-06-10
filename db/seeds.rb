@@ -2,12 +2,12 @@
 
 #create 2 users and games for both
 
-gameboy = Users.create(username: "gameboy", password: "boy")
-gamegirl = Users.create(username: "gamegirl", password: "girl")
+gameboy = User.create(username: "gameboy", password: "boy")
+gamegirl = User.create(username: "gamegirl", password: "girl")
 
-VideoGames.create(title: "Minecraft", user_id: gameboy.id)
+VideoGame.create(title: "Minecraft", user_id: gameboy.id)
 
-VideoGames.create(title: "Call of Duty", user_id: gamegirl.id)
+VideoGame.create(title: "Call of Duty", user_id: gamegirl.id)
 
 
 
