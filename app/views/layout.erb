@@ -15,9 +15,13 @@
   </head>
   <body>
     <div class="navigations">
+      <% if logged_in? %>
       <a href="/logout">Logout</a>
-      <a href="/games">Video Game Collection</a>
       <a href="/games/new">Enter New Game</a>
+      <% end %>
+      <a href="/">Home</a>
+      <a href="/games">Video Game Collection</a>
+      
     </div>
     <div class="wrapper">
 
