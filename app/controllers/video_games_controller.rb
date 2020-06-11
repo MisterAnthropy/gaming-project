@@ -72,11 +72,4 @@ class VideoGamesController < ApplicationController
         @game = VideoGame.find_by(id: params[:id])
     end
 
-
-
-
-
-
-
-
 end
