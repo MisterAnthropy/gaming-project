@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     #receive the login form, find the user and log them in
     post '/login' do 
         @user = User.find_by(username: params[:username])
-         if @user.authenticate(params[:password])
+         if @user ==! nil && @user.authenticate(params[:password])
             session[:user_id] = @user.id
             puts session
             redirect "/users/#{@user.id}"
