@@ -10,11 +10,9 @@ class VideoGamesController < ApplicationController
     end
 
     post '/games' do 
-        if !logged_in?
-            redirect '/'
-        end
-        if params[:title] != ""
-            @game = VideoGame.create(title: params[:title], user_id: current_user.id)
+        redirect '/' if logged_in?
+        @game = VideoGame.new(title: params[:title], user_id: current_user.id)
+        if @game.save
             redirect "/games/#{@game.id}"
         else
             redirect '/games/new'
@@ -23,29 +21,29 @@ class VideoGamesController < ApplicationController
 
     get '/games/:id' do
         set_game
-        erb :'/games/show'
+        if @game != nil    
+            erb :'/games/show'
+        else 
+            redirect '/games'
+        end
+
     end
 
 
     get '/games/:id/edit' do 
         set_game
-        if logged_in?
+        redirect '/' if !logged_in?
             if authorized?(@game)
             erb :'/games/edit'
-            #problem code below
             else 
                 redirect "/users/#{current_user.id}"
             end
-        else 
-            redirect '/'
-        end
-
     end
 
-    post '/games/:id' do
+    patch '/games/:id' do
         set_game
         if logged_in?
-            if @game.user == current_user 
+            if @game != nil && @game.user == current_user 
             @game.update(title: params[:title])
             redirect "/games/#{@game.id}"
             else

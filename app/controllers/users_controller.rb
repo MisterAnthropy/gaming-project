@@ -1,16 +1,14 @@
 class UsersController < ApplicationController
 
 
-    #render the login page 
     get '/login' do 
         erb :login
     end
 
 
-    #receive the login form, find the user and log them in
     post '/login' do 
         @user = User.find_by(username: params[:username])
-         if @user ==! nil && @user.authenticate(params[:password])
+         if @user != nil && @user.authenticate(params[:password]) 
             session[:user_id] = @user.id
             puts session
             redirect "/users/#{@user.id}"
@@ -20,7 +18,6 @@ class UsersController < ApplicationController
          end
     end
 
-    #render the signup page
     get '/signup' do 
         erb :signup 
     end
@@ -33,7 +30,6 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect "/users/#{@user.id}"
         else
-            #invalid input
             redirect '/signup'
         end
 
@@ -43,9 +39,9 @@ class UsersController < ApplicationController
 
 
     get '/users/:id' do 
-        @user = User.find_by(id: params[:id])
+       @user = User.find_by(id: params[:id])
         
-        erb :'/users/show'
+        redirect "/games"
     end
 
     get '/logout' do 
