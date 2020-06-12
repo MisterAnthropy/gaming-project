@@ -10,9 +10,10 @@ class VideoGamesController < ApplicationController
     end
 
     post '/games' do 
-        redirect '/' if logged_in?
+        redirect '/' if !logged_in?
         @game = VideoGame.new(title: params[:title], user_id: current_user.id)
-        if @game.save
+        if 
+            @game.save
             redirect "/games/#{@game.id}"
         else
             redirect '/games/new'
